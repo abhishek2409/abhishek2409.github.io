@@ -30,6 +30,7 @@
   "author": "Abhishek Wadhawan",
   "license": "MIT",
   "dependencies": {
+    "bootstrap": "4.0.0",
     "express-static-gzip": "0.3.2",
     "object-assign": "4.1.1",
     "precss": "3.1.2",

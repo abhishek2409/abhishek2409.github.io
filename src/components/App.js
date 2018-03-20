@@ -13,12 +13,13 @@ import Tab2 from './containers/Tab2';
 class App extends React.Component {
   render() {
     return (<div>
-      <Layout/>
-      <Switch>
-        <Route exact path="/tab1" component={Tab1}/>
-        <Route exact path="/tab2" component={Tab2}/>
-        <Route exact component={NotFoundPage}/>
-      </Switch>
+        <Switch>
+          <Route path="/" component={Layout}>
+            <Route exact path="tab1" component={Tab1}/>
+            <Route exact path="tab2" component={Tab2}/>
+          </Route>
+          <Route exact component={NotFoundPage}/>
+        </Switch>
     </div>);
   }
 }

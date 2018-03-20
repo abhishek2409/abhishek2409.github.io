@@ -4,13 +4,12 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Link, Route} from 'react-router-dom';
 
-
 export class Layout extends React.Component {
   constructor(props) {
-      super(props);
+    super(props);
   }
   render() {
-    return (<div className="wrapper">
+    return (<div className="container project-accord--wrapper">
       <ul>
         <li>
           <Link to="/tab1">Tab1</Link>
@@ -19,6 +18,9 @@ export class Layout extends React.Component {
           <Link to="/tab2">Tab2</Link>
         </li>
       </ul>
+      <div className="main-content">
+        {this.props.children}
+      </div>
     </div>);
   }
 }
