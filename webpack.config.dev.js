@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 import path from 'path';
 
 export default {
@@ -34,7 +35,19 @@ export default {
         collapseWhitespace: true
       },
       inject: true
-    })
+  }),
+  new webpack.LoaderOptionsPlugin({
+    minimize: false,
+    debug: true,
+    noInfo: true, // set to false to see a list of every file being bundled.
+    options: {
+      sassLoader: {
+        includePaths: [path.resolve(__dirname, 'src', 'scss')]
+      },
+      context: '/',
+      postcss: () => [autoprefixer],
+    }
+  })
   ],
   module: {
     rules: [
@@ -44,32 +57,8 @@ export default {
         use: ['babel-loader']
       },
       {
-        test: /\.eot(\?v=\d+.\d+.\d+)?$/,
-        use: ['file-loader']
-      },
-      {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              mimetype: 'application/font-woff'
-            }
-          }
-        ]
-      },
-      {
-        test: /\.[ot]tf(\?v=\d+.\d+.\d+)?$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              mimetype: 'application/octet-stream'
-            }
-          }
-        ]
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        loader: 'file-loader?name=public/fonts/[name].[ext]'
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
@@ -95,37 +84,25 @@ export default {
         ]
       },
       {
-        test: /(\.css|\.scss|\.sass|\.less)$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true
-            }
-          }, {
-            loader: 'postcss-loader',
-            options: {
-              plugins: () => [
+        test: /\.(scss)$/,
+        use: [{
+          loader: 'style-loader', // inject CSS to page
+        }, {
+          loader: 'css-loader', // translates CSS into CommonJS modules
+        }, {
+          loader: 'postcss-loader', // Run post css actions
+          options: {
+            plugins: function () { // post css plugins, can be exported to postcss.config.js
+              return [
+                require('precss'),
                 require('autoprefixer')
-              ],
-              sourceMap: true
-            }
-          },{
-            loader: 'less-loader',
-            options: {
-              includePaths: [path.resolve(__dirname, 'src', 'less')],
-              sourceMap: true
-            }
-          }, {
-            loader: 'sass-loader',
-            options: {
-              includePaths: [path.resolve(__dirname, 'src', 'scss')],
-              sourceMap: true
+              ];
             }
           }
-        ]
-      }
+        }, {
+          loader: 'sass-loader' // compiles Sass to CSS
+        }]
+      },
     ]
   }
 };

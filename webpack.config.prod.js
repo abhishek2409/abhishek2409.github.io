@@ -4,26 +4,32 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import autoprefixer from 'autoprefixer';
+import CompressionPlugin from 'compression-webpack-plugin';
 import path from 'path';
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('production'),
   __DEV__: false
 };
+const removeEmpty = array => array.filter(p => !!p);
 
 export default {
   resolve: {
     extensions: ['*', '.js', '.jsx', '.json']
   },
   devtool: 'source-map', // more info:https://webpack.js.org/guides/production/#source-mapping and https://webpack.js.org/configuration/devtool/
-  entry: path.resolve(__dirname, 'src/index'),
+  entry: {
+    vendor: ["react", "react-router", "react-dom"],
+    main: path.resolve(__dirname, 'src/index')
+  },
   target: 'web',
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     filename: '[name].[chunkhash].js'
   },
-  plugins: [
+  plugins: removeEmpty([
     // Hash the files using MD5 so that their names change when the content changes.
     new WebpackMd5Hash(),
 
@@ -31,7 +37,16 @@ export default {
     new webpack.DefinePlugin(GLOBALS),
 
     // Generate an external css file with a hash in the filename
-    new ExtractTextPlugin('[name].[contenthash].css'),
+    new ExtractTextPlugin({
+      allChunks: true,
+      filename: '[name].[contenthash].css'
+    }),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      children: true,
+      filename: '[name].[hash].js'
+    }),
 
     // Generate HTML file that contains references to generated bundles. See here for how this works: https://github.com/ampedandwired/html-webpack-plugin#basic-usage
     new HtmlWebpackPlugin({
@@ -56,8 +71,35 @@ export default {
     }),
 
     // Minify JS
-    new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
-  ],
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true, // enable source maps to map errors (stack traces) to modules
+      output: {
+        comments: false, // remove all comments
+      },
+      compress: {
+        drop_console: true
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
+      noInfo: true, // set to false to see a list of every file being bundled.
+      options: {
+        sassLoader: {
+          includePaths: [path.resolve(__dirname, 'src', 'scss')]
+        },
+        context: '/',
+        postcss: () => [autoprefixer]
+      }
+    }),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
+]),
   module: {
     rules: [
       {
