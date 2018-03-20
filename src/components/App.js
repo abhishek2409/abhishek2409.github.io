@@ -14,11 +14,8 @@ class App extends React.Component {
   render() {
     return (<div>
         <Switch>
-          <Route path="/" component={Layout}>
-            <Route exact path="tab1" component={Tab1}/>
-            <Route exact path="tab2" component={Tab2}/>
-          </Route>
-          <Route exact component={NotFoundPage}/>
+          <Route  path="/" component={Layout}/>
+          <Route  component={NotFoundPage}/>
         </Switch>
     </div>);
   }
