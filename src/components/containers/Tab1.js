@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Link} from 'react-router-dom';
+import {departureFlights, returnFlights} from '../../constants/appConstants';
 
 export class Tab1 extends React.Component {
   constructor(props) {
