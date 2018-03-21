@@ -1,0 +1,85 @@
+.list-wrapper {
+  position: relative;
+  float: left;
+  width: calc(100% - 40px);
+  border: 1px solid #ccc;
+  margin: 0 20px 1em;
+  padding: 10px;
+  background: #fff;
+
+  .flight-info {
+    font-size: 0.9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .flights-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .list-item {
+      margin: 1em 0;
+
+      input[type="radio"] {
+        display: none;
+      }
+
+      label {
+        cursor: pointer;
+        margin-right: 10px;
+
+        span {
+          width: 20px;
+          height: 20px;
+          border: 1px solid $main-color;
+          border-radius: 50%;
+          display: inline-block;
+          position: relative;
+          vertical-align: sub;
+
+          &:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 70%;
+            height: 70%;
+            background-color: $main-color;
+            display: none;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      input:checked + label {
+        span {
+          &:after {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  &:after,
+  &:before {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    bottom: 25px;
+    left: 10px;
+    width: 50%;
+    top: 0;
+    box-shadow: 0 25px 30px #cecece;
+    transform: rotate(-10deg);
+  }
+
+  &:after {
+    transform: rotate(10deg);
+    right: 10px;
+    left: auto;
+  }
+}

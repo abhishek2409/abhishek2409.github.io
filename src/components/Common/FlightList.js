@@ -6,7 +6,7 @@ export default class FlightList extends React.Component {
     super(props);
   }
   renderFlightInfo(flight) {
-    return (<p>{`${flight.departureCity.name} to ${flight.arrivalCity.name}(${flight.description})`}</p>);
+    return (<p className="flight-info" title={flight.description}>{`${flight.departureCity.name} to ${flight.arrivalCity.name} (${flight.description})`}</p>);
   }
   renderStopages(flight){
       if(flight.ifNonStop){
@@ -32,10 +32,12 @@ export default class FlightList extends React.Component {
   }
 
   renderList(options, selectedFlight, type) {
+    console.log(options,selectedFlight);
     return _.map(options, option => {
       return (
           <li className="list-item" key={option.id}>
-            <input type="radio" name="flight" onChange={e=>this._onChange(option,type)} checked={option.id === selectedFlight.id}/>
+            <input id={option.id} type="radio"  onChange={e=>this._onChange(option,type)} checked={option.id === selectedFlight.id}/>
+            <label htmlFor={option.id}><span></span></label>
             <span className="city-name">{option.departureCity.name}</span>
             <span className="departure-time">{option.fmtDepartureTime}</span>
             {this.renderStopages(option)}
@@ -49,7 +51,7 @@ export default class FlightList extends React.Component {
     const {selectedFlight, options, type} = this.props;
     return (<div className="list-wrapper">
       {this.renderFlightInfo(selectedFlight)}
-      <ul>
+      <ul className="flights-list">
         {this.renderList(options, selectedFlight, type)}
       </ul>
     </div>);
