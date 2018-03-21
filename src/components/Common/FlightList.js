@@ -35,17 +35,13 @@ export default class FlightList extends React.Component {
     console.log(options,selectedFlight);
     return _.map(options, option => {
       return (
-          <li className="list-item" key={option.id}>
-
+          <li className="list-item" key={option.id} onClick={e=>this._onChange(option,type)}>
             <span className="float-left"><input id={option.id} type="radio"  onChange={e=>this._onChange(option,type)} checked={option.id === selectedFlight.id}/>
             <label htmlFor={option.id}><span></span></label><span className="city-name">{option.departureCity.code}</span>
             <span className="departure-time">{option.fmtDepartureTime}</span></span>
             {this.renderStopages(option)}
             <span className="float-right"><span className="city-name">{option.arrivalCity.code}</span>
             <span className="departure-time">{option.fmtArrivalTime}</span></span>
-
-
-
         </li>
         )
     })

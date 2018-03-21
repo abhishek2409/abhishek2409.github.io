@@ -11,10 +11,10 @@ export default class FlightDetail extends React.Component {
   renderPlace(city, fmtTime, time, tml) {
     return (<div className="place-wrapper">
       <h3>
-        <span>{city.name}</span>
+        <span>{city.code}</span>
         {fmtTime}</h3>
-      <p>{moment(time).format("D MMM' YY, ddd")}</p>
-      <p>{tml}</p>
+      <p className="place-timings">{moment(time).format("D MMM' YY, ddd")}</p>
+      <p className="place-tml">{tml}</p>
     </div>)
   }
   renderStopages(flight) {

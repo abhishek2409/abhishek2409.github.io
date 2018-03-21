@@ -21,6 +21,7 @@
 
     .list-item {
       margin: 1em 0;
+      cursor: pointer;
 
       input[type="radio"] {
         display: none;
@@ -79,7 +80,7 @@
     position: absolute;
     z-index: -1;
     content: "";
-    bottom: 25px;
+    bottom: 30px;
     left: 10px;
     width: 50%;
     top: 0;
