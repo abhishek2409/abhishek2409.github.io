@@ -61,6 +61,16 @@
           }
         }
       }
+      .city-name{
+          color: lighten(#555, 20);
+          font-size: 1.2em;
+          font-weight: 600;
+          margin-right: 5px;
+      }
+      .departure-time{
+          font-size: 1.2em;
+          font-weight: 600;
+      }
     }
   }
 
