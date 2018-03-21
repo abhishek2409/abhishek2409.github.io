@@ -1,0 +1,71 @@
+.detail-wrapper{
+    position: relative;
+    float: left;
+    width: 100%;
+    padding: 0 20px;
+    .detail-header{
+        background: $main-color;
+        color: #fff;
+        padding:5px 10px;
+        float: left;
+        width: 100%;
+    }
+    .flight-brand{
+        float: left;
+        width: 100%;
+        position: relative;
+        margin: 1em 0;
+        .brand-logo{
+            width: 50px;
+            height: 50px;
+            img{
+                max-height:100%;
+            }
+        }
+        .brand-code{
+            margin-top: 10px;
+            color: #555;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+    }
+    .flight-timings{
+        width: 100%;
+        float: left;
+        position: relative;
+    }
+    .baggage-wrapper{
+        width: 100%;
+        float: left;
+        position: relative;
+        border-bottom: 1px solid #ccc;
+        margin: 1em 0;
+        padding-bottom: 1em;
+        >h3{
+            font-size: 1.2em;
+            color: #666;
+            text-transform: uppercase;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        >h4{
+            font-size: 1em;
+            color: #666;
+        }
+        .allowance-wrapper{
+            position: relative;
+            float: left;
+            width: 100%;
+            .allowance-item{
+                float: left;
+                width: 50%;
+                font-weight: 500;
+                color: #555;
+                margin: 10px 0;
+                span.fas{
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}

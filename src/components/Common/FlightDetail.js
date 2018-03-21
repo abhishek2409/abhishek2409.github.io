@@ -54,7 +54,7 @@ export default class FlightDetail extends React.Component {
         <span className="float-left">
           {`${flight.departureCity.name} to ${flight.arrivalCity.name}, ${moment(flight.fmtDateofSearch).format("D MMM")}`}
         </span>
-        <span className="pull-right">
+        <span className="float-right">
           {`(${flight.duration})`}
         </span>
       </div>

@@ -92,7 +92,7 @@ export const departureFlightsConst = [{
   }
 ]
 export const returnFlightsConst = [{
-    id: 1,
+    id: 4,
     logo:require('../../public/images/logo.jpg'),
     departureCity: {
       code: 'DEL',
@@ -123,7 +123,7 @@ export const returnFlightsConst = [{
     description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   },
   {
-    id: 2,
+    id: 5,
     logo:require('../../public/images/logo.jpg'),
     departureCity: {
       code: 'KOL',
@@ -153,7 +153,7 @@ export const returnFlightsConst = [{
     description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   },
   {
-    id: 3,
+    id: 6,
     logo:require('../../public/images/logo.jpg'),
     departureCity: {
       code: 'DEL',

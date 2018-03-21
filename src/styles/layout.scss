@@ -1,3 +1,5 @@
+$main-color:#269ABD;
+
 .project-accord--wrapper {
   position: absolute;
   top: 50%;
@@ -5,7 +7,7 @@
   transform: translate(-50%,-50%);
 
   .nav-tabs {
-    border-bottom: 1px solid #269ABD;
+    border-bottom: 1px solid $main-color;
 
     .nav-item {
       margin-bottom: -2px;
@@ -15,17 +17,17 @@
         border-top-left-radius: 0.1rem;
         border-top-right-radius: 0.1rem;
         text-transform: uppercase;
-        color: #269ABD;
+        color: $main-color;
 
         &.active,
         &:hover {
-          border-color: #269ABD #269ABD #fff;
+          border-color: $main-color $main-color #fff;
         }
       }
 
       &.show {
         .nav-link {
-          border-color: #269ABD #269ABD #fff;
+          border-color: $main-color $main-color #fff;
         }
       }
     }
@@ -35,8 +37,8 @@
     width: 100%;
     float: left;
     position: relative;
-    border: 1px solid #269ABD;
+    border: 1px solid $main-color;
     border-top: none;
-    min-height: 75vh;
+    height: 75vh;
   }
 }
