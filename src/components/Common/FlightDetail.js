@@ -19,24 +19,22 @@ export default class FlightDetail extends React.Component {
   }
   renderStopages(flight) {
     if (flight.ifNonStop) {
-      return (<span className="stopage-wrapper">
-        <span className="stopage-start-icon"/>
-        <span className="stopages-nonstop">{flight.duration}
-          | Nonstop</span>
-        <span className="stopage-stop-icon"/>
-      </span>)
+      return (<div className="stopage-wrapper">
+      <div className="stopage"><span className="stopage-icon"/></div>
+      <div className="non-stopage">{flight.duration} | Non Stop</div>
+      <div className="stopage"><span className="stopage-icon"/></div>
+      </div>)
     } else {
-      return (<span className="stopage-wrapper">
-        <span className="stopage-start-icon"/>
-        <span className="stopages-nonstop">{flight.duration}
-          | {flight.stops.length}</span>
+      return (<div className="stopage-wrapper">
+        <div className="stopage"><span className="stopage-icon"/></div>
+        <div className="have-stops">{flight.duration} | {flight.stops.length} {`stop${flight.stops.length > 1 ? "s" : ""}`}</div>
         {
           _.map(flight.stops, (stop, i) => {
-            return (<span key={i} className="stop"><span className="stop-icon"/>{stop}</span>)
+            return ( <div className="stopage" key={i}><span className="stopage-icon"/><span className="stopage-text">{stop}</span></div>)
           })
         }
-        <span className="stopage-stop-icon"/>
-      </span>)
+        <div className="stopage"><span className="stopage-icon"/></div>
+      </div>)
     }
   }
   renderBaggageAllowance(bag) {

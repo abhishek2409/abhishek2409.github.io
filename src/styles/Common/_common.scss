@@ -1,0 +1,49 @@
+.stopage-wrapper {
+  margin-top: 10px;
+  border-top: 3px solid #999;
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+
+  .stopage {
+    margin-top: -7px;
+    position: relative;
+
+    .stopage-icon {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #999;
+      display: block;
+    }
+    .stopage-text{
+        font-size: 0.8em;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 5px;
+    }
+  }
+
+  .non-stopage {
+    position: absolute;
+    background: #fff;
+    font-size: 0.8em;
+    text-align: center;
+    left: 50%;
+    width: 70%;
+    transform: translate(-50%,-50%);
+    top: 15%;
+  }
+
+  .have-stops {
+    position: absolute;
+    font-size: 0.8em;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    top: 0;
+    width: 100%;
+    margin-top: -10px;
+  }
+}
