@@ -1,0 +1,68 @@
+.replies-wrapper {
+  position: relative;
+  width: 100%;
+  float: left;
+}
+
+.reply-item {
+  border-top: 1px solid #ccc;
+  padding: 1em 10px;
+  margin: 1em;
+  float: left;
+  width: calc(100% - 2em);
+
+  .vote-section {
+    float: left;
+    width: 10%;
+    text-align: center;
+
+    button {
+      background: none;
+      color: #2c6190;
+      display: inline-block;
+      font-size: 2em;
+      border: none;
+      line-height: normal;
+      padding: 0;
+      cursor: pointer;
+      outline: 0;
+    }
+
+    span {
+      display: block;
+    }
+  }
+
+  .desc-section {
+    float: left;
+    width: 90%;
+
+    .reply-meta {
+      color: lighten(#555,10);
+      font-size: 0.9em;
+      font-weight: bold;
+    }
+
+    .reply-desc {
+      font-weight: bold;
+      font-size: 1em;
+    }
+
+    .reply-info {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline-block;
+        margin-right: 5px;
+        padding-right: 10px;
+        font-size: 0.9em;
+
+        &:not(:last-child) {
+          border-right: 1px solid blue;
+        }
+      }
+    }
+  }
+}

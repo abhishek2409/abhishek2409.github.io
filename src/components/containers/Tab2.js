@@ -31,16 +31,13 @@ export class Tab2 extends React.Component {
   }
   render() {
     const {selectedQuestion} = this.props
-    return (<div>
-      {
-        !_.isEmpty(selectedQuestion)
+    return !_.isEmpty(selectedQuestion)
           ? (<div className="tab2-wrapper">
             <QuestionAsked question={selectedQuestion}/>
             <QuestionReplies question={selectedQuestion} upVote={this.upVote} downVote={this.downVote}/>
           </div>)
-          : null
-      }
-    </div>);
+          : (<div>Loading...</div>)
+
   }
 }
 

@@ -21,7 +21,7 @@ export default class ReplyItem extends React.Component {
     return (<div className="reply-item">
       <div className="vote-section">
         <button onClick={this.upVote.bind(this)}><span className="fas fa fa-caret-up"/></button>
-        {reply.votes}
+        <span>{reply.votes}</span>
         <button onClick={this.downVote.bind(this)}><span className="fas fa fa-caret-down"/></button>
       </div>
       <div className="desc-section">
