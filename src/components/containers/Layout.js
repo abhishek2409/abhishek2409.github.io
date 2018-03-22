@@ -21,10 +21,10 @@ export class Layout extends React.Component {
     return (<div className="container project-accord--wrapper">
       <ul className="nav nav-tabs justify-content-end">
         <li className="nav-item">
-          <NavLink to="/tab1" activeClassName="active" className="nav-link">Tab1</NavLink>
+          <NavLink to="/tab1" activeClassName="active" className="nav-link">Tab1 <span className="active-icon fa fal fa-angle-down"/><span className="fa inactive-icon fal fa-angle-up"/></NavLink>
         </li>
         <li className="nav-item">
-          <NavLink to="/tab2" activeClassName="active" className="nav-link">Tab2</NavLink>
+          <NavLink to="/tab2" activeClassName="active" className="nav-link">Tab2 <span className="fa active-icon fal fa-angle-down"/><span className="fa inactive-icon fal fa-angle-up"/></NavLink>
         </li>
       </ul>
       <div className="main-content">

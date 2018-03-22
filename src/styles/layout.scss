@@ -18,10 +18,26 @@ $main-color:#269ABD;
         border-top-right-radius: 0.1rem;
         text-transform: uppercase;
         color: $main-color;
+        .active-icon,.inactive-icon{
+            margin-left: 1em;
+        }
+
+        .inactive-icon{
+            display: inline-block;
+        }
+        .active-icon{
+            display: none;
+        }
 
         &.active,
         &:hover {
           border-color: $main-color $main-color #fff;
+          .active-icon{
+              display: inline-block;
+          }
+          .inactive-icon{
+              display: none;
+          }
         }
       }
 
