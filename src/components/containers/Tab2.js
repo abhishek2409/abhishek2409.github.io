@@ -3,28 +3,57 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Link} from 'react-router-dom';
+import {questionAsked} from '../../constants/appConstants';
+import {selectQuestion, upVoteQuestion, downVoteQuestion} from '../../actions/questionActions'
+import _ from 'underscore';
+import QuestionAsked from '../Common/QuestionAsked'
+import QuestionReplies from '../Common/QuestionReplies';
 
 export class Tab2 extends React.Component {
   constructor(props) {
-      super(props);
+    super(props);
+    this.upVote = this.upVote.bind(this);
+    this.downVote = this.downVote.bind(this);
+  }
+  componentDidMount() {
+    const {selectedQuestion, selectQuestion} = this.props
+    if (_.isEmpty(selectedQuestion)) {
+      selectQuestion(questionAsked)
+    }
+  }
+  upVote(replyId, questionId, votes) {
+    const {upVoteQuestion} = this.props;
+    upVoteQuestion(replyId,questionId, votes);
+  }
+  downVote(replyId, questionId, votes) {
+    const {downVoteQuestion} = this.props;
+    downVoteQuestion(replyId,questionId, votes);
   }
   render() {
-    return (<div className="tab2-wrapper">
-      <h1>Tab2</h1>
+    const {selectedQuestion} = this.props
+    return (<div>
+      {
+        !_.isEmpty(selectedQuestion)
+          ? (<div className="tab2-wrapper">
+            <QuestionAsked question={selectedQuestion}/>
+            <QuestionReplies question={selectedQuestion} upVote={this.upVote} downVote={this.downVote}/>
+          </div>)
+          : null
+      }
     </div>);
   }
 }
 
 function mapStateToProps(state) {
-  return {
-    // fuelSavings: state.fuelSavings
-  };
+  return {selectedQuestion: state.questions.selectedQuestion};
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    // actions: bindActionCreators(actions, dispatch)
+    selectQuestion: bindActionCreators(selectQuestion, dispatch),
+    downVoteQuestion: bindActionCreators(downVoteQuestion, dispatch),
+    upVoteQuestion: bindActionCreators(upVoteQuestion, dispatch)
   };
 }
 
-export default connect(null, null)(Tab2);
+export default connect(mapStateToProps, mapDispatchToProps)(Tab2);

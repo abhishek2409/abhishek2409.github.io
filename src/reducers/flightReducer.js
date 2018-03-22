@@ -1,9 +1,17 @@
 import { handleActions } from 'redux-actions';
 import * as actions from '../actions/flightActions';
+import objectAssign from 'object-assign';
+const initialState = {
+  selectedDeparture:{},
+  departureFlights:[],
+  selectedArrival:{},
+  arrivalFlights:[],
+  gettingFlights:true
+}
 
 export const flightReducer = handleActions({
   [actions.INIT]: (state, action) => {
-    let newState = Object.assign({}, state);
+    let newState = objectAssign({}, state);
     const {departureFlights, arrivalFlights} = action.payload
     newState.departureFlights = departureFlights;
     newState.arrivalFlights = arrivalFlights;
@@ -11,7 +19,7 @@ export const flightReducer = handleActions({
     return newState
     },
     [actions.SELECT_FLIGHT]:(state,action)=>{
-        let newState = Object.assign({},state);
+        let newState = objectAssign({},state);
         const {flight,type} = action.payload;
         if(type === 'arrival'){
             newState.selectedArrival = flight
@@ -20,10 +28,4 @@ export const flightReducer = handleActions({
         }
         return newState;
     }
-}, {
-  selectedDeparture:{},
-  departureFlights:[],
-  selectedArrival:{},
-  arrivalFlights:[],
-  gettingFlights:true
-})
+}, initialState )

@@ -1,0 +1,18 @@
+.question-wrapper{
+    position: relative;
+    float: left;
+    width:100%;
+    padding: 20px;
+    .question-title{
+        font-weight: bold;
+    }
+    .question-meta{
+        color: lighten(#555,10);
+        font-size: 0.9em;
+        font-weight: bold;
+    }
+    .question-desc{
+        font-weight: bold;
+        font-size: 1em;
+    }
+}
