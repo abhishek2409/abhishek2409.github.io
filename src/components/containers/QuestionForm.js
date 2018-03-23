@@ -44,9 +44,8 @@ class QuestionForm extends React.Component {
       comment: false,
       email: false
     }
-    this.setState({commentForm,errors},()=>{
-      console.log(this.state.commentForm);
-    });
+    this.setState({commentForm,errors});
+    this.handlePhoneChange("");
   }
 
   handlePhoneChange(val) {
