@@ -3,13 +3,7 @@ import * as actions from '../actions/questionActions';
 import _ from 'underscore';
 const initialState = {
   init: false,
-  selectedQuestion: {},
-  commentForm:{
-    name:'',
-    email:'',
-    phone:'',
-    comment:''
-  }
+  selectedQuestion: {}
 }
 import $ from 'jquery';
 

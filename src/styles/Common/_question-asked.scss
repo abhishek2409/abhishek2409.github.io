@@ -4,15 +4,15 @@
     width:100%;
     padding: 20px;
     .question-title{
-        font-weight: bold;
+        font-weight: 500;
     }
     .question-meta{
         color: lighten(#555,10);
-        font-size: 0.9em;
-        font-weight: bold;
+        font-size: 0.8em;
+        font-weight: 500;
     }
     .question-desc{
-        font-weight: bold;
-        font-size: 1em;
+        font-weight: 500;
+        font-size: 0.9em;
     }
 }

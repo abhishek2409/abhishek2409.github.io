@@ -31,7 +31,7 @@ export function downVoteQuestion(replyId,questionId, votes) {
 export const SUBMIT_COMMENT = PREFIX + 'SUBMIT_COMMENT'
 const submitCommentDone = createAction(SUBMIT_COMMENT)
 
-export function submitCommentQuestion(data, questionId) {
+export function submitComment(data, questionId) {
     return dispatch=>{
         dispatch(submitCommentDone({data, questionId}))
     }
