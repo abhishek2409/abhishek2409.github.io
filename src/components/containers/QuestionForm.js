@@ -5,13 +5,13 @@ import {bindActionCreators} from 'redux';
 import uniqid from 'uniqid';
 import ReactPhoneInput from 'react-phone-input-2';
 import $ from 'jquery';
+import {ValidateEmail} from '../../utils/validations'
 
 class QuestionForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      disabled: true,
-      commentForm:{
+      commentForm: {
         name: '',
         phone: '',
         comment: '',
@@ -30,83 +30,115 @@ class QuestionForm extends React.Component {
     this.checkValidations = this.checkValidations.bind(this);
     this.resetVals = this.resetVals.bind(this);
   }
-  resetVals(){
+  resetVals() {
     const commentForm = {
-      name:'',
-      email:'',
-      phone:'',
-      comment:''
+      name: '',
+      email: '',
+      phone: '',
+      comment: ''
     };
     this.setState({commentForm});
   }
-  componentDidMount() {
-    this.checkValidations();
-  }
-  handlePhoneChange(val){
+
+  handlePhoneChange(val) {
     const {setValue} = this.props;
-    let commentForm = $.extend(true,{},this.state.commentForm);
+    let commentForm = $.extend(true, {}, this.state.commentForm);
     commentForm["phone"] = val;
-    this.setState({commentForm},()=>{
-      this.checkValidations();
-    });
+    this.setState({commentForm});
 
   }
-  _onChange(e,type){
+  _onChange(e, type) {
     const {value} = e.target;
-    let commentForm = $.extend(true,{},this.state.commentForm);
+    if (type === 'comment' && value.length > 200) {
+      return
+    }
+    let commentForm = $.extend(true, {}, this.state.commentForm);
     commentForm[type] = value;
-    this.setState({commentForm},()=>{
-      this.checkValidations();
-    });
+    this.setState({commentForm});
   }
 
   checkValidations() {
-    let disabled = true;
+    let errors = $.extend(true, {}, this.state.errors);
+    let isValid = 0;
     const {name, email, phone, comment} = this.state.commentForm;
-    if ((name != '') && (email != '') && (phone != '') && (comment != '')) {
-      disabled = false;
-    }else{
-      disabled = true;
+    if (ValidateEmail(email) && email !== '') {
+      errors['email'] = false
+      isValid += 1
+    } else {
+      errors['email'] = "Please enter a valid email id"
+      isValid += 0
     }
-    this.setState({disabled});
+    if (name === '') {
+      errors['name'] = "Please enter your name"
+      isValid += 0
+    } else {
+      errors['name'] = false;
+      isValid += 1
+    }
+    if (phone === '') {
+      errors['phone'] = "Please enter your phone"
+      isValid += 0
+    } else {
+      errors['phone'] = false;
+      isValid += 1
+    }
+    if (comment === '') {
+      errors['comment'] = "Please enter your name"
+      isValid += 0
+    } else {
+      errors['comment'] = false;
+      isValid += 1
+    }
+    this.setState({errors});
+    return isValid === 4
   }
   _onSubmit(e) {
     e.preventDefault();
-    const {name,email,phone,comment} = this.state.commentForm;
-    const {submitComment,selectedQuestion} = this.props;
-    let params = {
-      date_replied: new Date(),
-      author: name,
-      category: 'Category 2',
-      description: comment,
-      votes: 0,
-      comments: 0,
-      id: uniqid()
+    const isValid = this.checkValidations();
+    const {commentForm} = this.state;
+    const {name, email, phone, comment} = commentForm;
+    const {submitComment, selectedQuestion} = this.props;
+    if (!isValid) {
+      return
+    }else{
+      let params = {
+        date_replied: new Date(),
+        author: name,
+        category: 'Category 2',
+        description: comment,
+        votes: 0,
+        comments: 0,
+        id: uniqid()
+      }
+      submitComment(params, selectedQuestion.id);
+      this.resetVals();
     }
-    submitComment(params, selectedQuestion.id);
-    this.resetVals();
   }
 
   render() {
-    const {disabled, errors, commentForm} = this.state;
+    const {errors, commentForm} = this.state;
     const {name, email, phone, comment} = commentForm;
+    let formClassName = '';
+    if (errors.name || errors.phone || errors.comment || errors.email) {
+      formClassName = "was-validated";
+    }
     return (<div className="form-wrapper">
-      <form onSubmit={this._onSubmit}>
+      <form className={`needs-validation ${formClassName}`} onSubmit={this._onSubmit}>
         <div className="form-row">
           <div className="form-group col-md-4">
-            <input type="text" className="form-control" onChange={e=>this._onChange(e,"name")} value={name} placeholder="Enter your name" required="required"/> {
+            <input type="text" className="form-control" onChange={e => this._onChange(e, "name")} value={name} placeholder="Enter your name" required="required"/> {
               errors.name
-                ? (<div class="invalid-feedback">
+                ? (<div className="invalid-feedback">
                   {errors.name}
                 </div>)
                 : null
             }
           </div>
           <div className="form-group col-md-4">
-            <input onChange={e=>this._onChange(e,"email")} type="email" className="form-control" value={email} placeholder="Enter your email id" required="required"/> {
+            <input onChange={e => this._onChange(e, "email")} type="email" className="form-control" value={email} placeholder="Enter your email id" required="required"/> {
               errors.email
-                ? (<div class="invalid-feedback">
-                  {erros.email}
+                ? (<div className="invalid-feedback">
+                  {errors.email}
                 </div>)
                 : null
             }
@@ -114,8 +146,8 @@ class QuestionForm extends React.Component {
           <div className="form-group col-md-4">
             <ReactPhoneInput value={phone} defaultCountry={'in'} onChange={this.handlePhoneChange}/> {
               errors.phone
-                ? (<div class="invalid-feedback">
-                  {erros.phone}
+                ? (<div className="invalid-feedback">
+                  {errors.phone}
                 </div>)
                 : null
             }
@@ -123,27 +155,26 @@ class QuestionForm extends React.Component {
         </div>
         <div className="form-row">
           <div className="form-group col-md-12">
-            <textarea className="form-control" onChange={e=>this._onChange(e,"comment")} placeholder="Enter your comment" required="required" value={comment} />
-            <small className="form-text text-muted float-right">{comment.length} of 200 characters left</small>
+            <textarea className="form-control" onChange={e => this._onChange(e, "comment")} placeholder="Enter your comment" required="required" value={comment}/>
+            <small className="form-text text-muted float-right">{comment.length}
+              of 200 characters left</small>
             {
               errors.comment
-                ? (<div class="invalid-feedback">
-                  {erros.comment}
+                ? (<div className="invalid-feedback">
+                  {errors.comment}
                 </div>)
                 : null
             }
           </div>
         </div>
-        <button type="submit" disabled={disabled} className="btn btn-primary">SUBMIT</button>
+        <button type="submit"  className="btn btn-primary">SUBMIT</button>
       </form>
     </div>);
   }
 }
 
 function mapStateToProps(state) {
-  return {
-    selectedQuestion: state.questions.selectedQuestion
-  };
+  return {selectedQuestion: state.questions.selectedQuestion};
 }
 
 function mapDispatchToProps(dispatch) {
