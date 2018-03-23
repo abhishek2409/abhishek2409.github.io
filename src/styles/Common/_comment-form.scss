@@ -1,0 +1,21 @@
+.form-wrapper {
+  float: left;
+  width: calc(100% - 2em);
+  padding: 20px;
+  background: #f9f9f9;
+  margin: 1em;
+
+  .form-control {
+    border-color: #ccc;
+
+    &::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: #ccc;
+      font-weight: normal;
+    }
+  }
+
+  textarea {
+    resize: none;
+  }
+}
