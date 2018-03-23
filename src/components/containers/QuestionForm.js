@@ -31,13 +31,22 @@ class QuestionForm extends React.Component {
     this.resetVals = this.resetVals.bind(this);
   }
   resetVals() {
-    const commentForm = {
+    let {commentForm,errors} = $.extend(true, {}, this.state);
+    commentForm = {
       name: '',
-      email: '',
       phone: '',
-      comment: ''
-    };
-    this.setState({commentForm});
+      comment: '',
+      email: ''
+    },
+    errors = {
+      name: false,
+      phone: false,
+      comment: false,
+      email: false
+    }
+    this.setState({commentForm,errors},()=>{
+      console.log(this.state.commentForm);
+    });
   }
 
   handlePhoneChange(val) {
@@ -59,38 +68,26 @@ class QuestionForm extends React.Component {
 
   checkValidations() {
     let errors = $.extend(true, {}, this.state.errors);
-    let isValid = 0;
+    let formIsValid = true;
     const {name, email, phone, comment} = this.state.commentForm;
-    if (ValidateEmail(email) && email !== '') {
-      errors['email'] = false
-      isValid += 1
-    } else {
+    if (!ValidateEmail(email) || email === '') {
       errors['email'] = "Please enter a valid email id"
-      isValid += 0
+      formIsValid = false
     }
     if (name === '') {
       errors['name'] = "Please enter your name"
-      isValid += 0
-    } else {
-      errors['name'] = false;
-      isValid += 1
+      formIsValid = false
     }
     if (phone === '') {
       errors['phone'] = "Please enter your phone"
-      isValid += 0
-    } else {
-      errors['phone'] = false;
-      isValid += 1
+      formIsValid = false
     }
     if (comment === '') {
       errors['comment'] = "Please enter your name"
-      isValid += 0
-    } else {
-      errors['comment'] = false;
-      isValid += 1
+      formIsValid = false
     }
     this.setState({errors});
-    return isValid === 4
+    return formIsValid;
   }
   _onSubmit(e) {
     e.preventDefault();
@@ -98,9 +95,7 @@ class QuestionForm extends React.Component {
     const {commentForm} = this.state;
     const {name, email, phone, comment} = commentForm;
     const {submitComment, selectedQuestion} = this.props;
-    if (!isValid) {
-      return
-    }else{
+    if (isValid) {
       let params = {
         date_replied: new Date(),
         author: name,
@@ -123,7 +118,7 @@ class QuestionForm extends React.Component {
       formClassName = "was-validated";
     }
     return (<div className="form-wrapper">
-      <form className={`needs-validation ${formClassName}`} onSubmit={this._onSubmit}>
+      <form className={`needs-validation ${formClassName}`} onSubmit={this._onSubmit} noValidate>
         <div className="form-row">
           <div className="form-group col-md-4">
             <input type="text" className="form-control" onChange={e => this._onChange(e, "name")} value={name} placeholder="Enter your name" required="required"/> {
