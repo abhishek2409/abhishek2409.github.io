@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 import * as actions from '../actions/flightActions';
-import objectAssign from 'object-assign';
+import $ from 'jquery';
 const initialState = {
   selectedDeparture:{},
   departureFlights:[],
@@ -11,7 +11,7 @@ const initialState = {
 
 export const flightReducer = handleActions({
   [actions.INIT]: (state, action) => {
-    let newState = objectAssign({}, state);
+    let newState = $.extend(true,{},state)
     const {departureFlights, arrivalFlights} = action.payload
     newState.departureFlights = departureFlights;
     newState.arrivalFlights = arrivalFlights;
@@ -19,7 +19,7 @@ export const flightReducer = handleActions({
     return newState
     },
     [actions.SELECT_FLIGHT]:(state,action)=>{
-        let newState = objectAssign({},state);
+        let newState = $.extend(true,{},state)
         const {flight,type} = action.payload;
         if(type === 'arrival'){
             newState.selectedArrival = flight

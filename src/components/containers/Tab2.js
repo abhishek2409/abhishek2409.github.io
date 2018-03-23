@@ -8,6 +8,7 @@ import {selectQuestion, upVoteQuestion, downVoteQuestion} from '../../actions/qu
 import _ from 'underscore';
 import QuestionAsked from '../Common/QuestionAsked'
 import QuestionReplies from '../Common/QuestionReplies';
+import QuestionForm from './QuestionForm';
 
 export class Tab2 extends React.Component {
   constructor(props) {
@@ -30,11 +31,12 @@ export class Tab2 extends React.Component {
     downVoteQuestion(replyId,questionId, votes);
   }
   render() {
-    const {selectedQuestion} = this.props
+    const {selectedQuestion, commentForm} = this.props
     return !_.isEmpty(selectedQuestion)
           ? (<div className="tab2-wrapper">
             <QuestionAsked question={selectedQuestion}/>
             <QuestionReplies question={selectedQuestion} upVote={this.upVote} downVote={this.downVote}/>
+            <QuestionForm/>
           </div>)
           : (<div>Loading...</div>)
 
@@ -42,7 +44,9 @@ export class Tab2 extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {selectedQuestion: state.questions.selectedQuestion};
+  return {
+    selectedQuestion: state.questions.selectedQuestion
+  };
 }
 
 function mapDispatchToProps(dispatch) {

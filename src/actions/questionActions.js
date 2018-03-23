@@ -27,3 +27,12 @@ export function downVoteQuestion(replyId,questionId, votes) {
         dispatch(downVoteDone({replyId,questionId, votes}))
     }
 }
+
+export const SUBMIT_COMMENT = PREFIX + 'SUBMIT_COMMENT'
+const submitCommentDone = createAction(SUBMIT_COMMENT)
+
+export function submitCommentQuestion(data, questionId) {
+    return dispatch=>{
+        dispatch(submitCommentDone({data, questionId}))
+    }
+}

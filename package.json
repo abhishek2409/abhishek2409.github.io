@@ -35,7 +35,6 @@
     "express-static-gzip": "0.3.2",
     "jquery": "3.3.1",
     "moment": "2.21.0",
-    "object-assign": "4.1.1",
     "path": "0.12.7",
     "precss": "3.1.2",
     "react": "16.2.0",
@@ -46,7 +45,8 @@
     "redux": "3.7.2",
     "redux-actions": "2.3.0",
     "redux-thunk": "2.2.0",
-    "underscore": "1.8.3"
+    "underscore": "1.8.3",
+    "uniqid": "4.1.1"
   },
   "devDependencies": {
     "autoprefixer": "8.1.0",
