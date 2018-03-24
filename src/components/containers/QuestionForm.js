@@ -25,7 +25,8 @@ class QuestionForm extends React.Component {
         phone: false,
         comment: false,
         email: false
-      }
+      },
+      formIsValid:true
     };
     this._onSubmit = this._onSubmit.bind(this);
     this._onChange = this._onChange.bind(this);
@@ -86,7 +87,7 @@ class QuestionForm extends React.Component {
       errors['comment'] = "Please enter your comment";
       formIsValid = false;
     }
-    this.setState({errors});
+    this.setState({errors, formIsValid});
     return formIsValid;
   }
   _onSubmit(e) {
@@ -95,7 +96,6 @@ class QuestionForm extends React.Component {
     const {commentForm} = this.state;
     const {name, email, phone, comment} = commentForm;
     const {submitComment, selectedQuestion} = this.props;
-    console.log(name,email,phone,comment,isValid);
     if (isValid) {
       let params = {
         date_replied: new Date(),
@@ -112,7 +112,7 @@ class QuestionForm extends React.Component {
   }
 
   render() {
-    const {errors, commentForm} = this.state;
+    const {errors, commentForm, formIsValid} = this.state;
     const {name, email, phone, comment} = commentForm;
     let formClassName = '';
     if (errors.name || errors.phone || errors.comment || errors.email) {
@@ -157,7 +157,7 @@ class QuestionForm extends React.Component {
             }
           </div>
         </div>
-        <button type="submit"  className="btn btn-primary">SUBMIT</button>
+        <button type="submit"  className={`btn btn-primary ${formIsValid ? "" : "btn-danger"}`}>SUBMIT</button>
       </form>
     </div>);
   }
