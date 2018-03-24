@@ -32,20 +32,15 @@ class QuestionForm extends React.Component {
   }
   resetVals() {
     let {commentForm,errors} = $.extend(true, {}, this.state);
-    commentForm = {
-      name: '',
-      phone: '',
-      comment: '',
-      email: ''
-    },
-    errors = {
-      name: false,
-      phone: false,
-      comment: false,
-      email: false
-    }
+    commentForm['name'] = "";
+    commentForm['phone'] = "";
+    commentForm['comment'] = "";
+    commentForm['email'] = "";
+    errors['name'] = false;
+    errors['phone'] = false;
+    errors['comment'] = false;
+    errors['email'] = false;
     this.setState({commentForm,errors});
-    this.handlePhoneChange("");
   }
 
   handlePhoneChange(val) {
@@ -82,7 +77,7 @@ class QuestionForm extends React.Component {
       formIsValid = false
     }
     if (comment === '') {
-      errors['comment'] = "Please enter your name"
+      errors['comment'] = "Please enter your comment"
       formIsValid = false
     }
     this.setState({errors});
@@ -94,6 +89,7 @@ class QuestionForm extends React.Component {
     const {commentForm} = this.state;
     const {name, email, phone, comment} = commentForm;
     const {submitComment, selectedQuestion} = this.props;
+    console.log(name,email,phone,comment,isValid);
     if (isValid) {
       let params = {
         date_replied: new Date(),
