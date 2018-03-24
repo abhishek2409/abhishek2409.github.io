@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import FlightDetail from './FlightDetail';
 import FlightList from './FlightList';
 

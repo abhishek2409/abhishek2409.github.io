@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {NavLink, Route} from 'react-router-dom';
 import Tab1 from './Tab1';
 import Tab2 from './Tab2';
 
-export class Layout extends React.Component {
+export default class Layout extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -14,7 +13,7 @@ export class Layout extends React.Component {
     const {location, history} = this.props;
     console.log(this.props);
     if (location.pathname === '/') {
-      history.push('/tab1')
+      history.push('/tab1');
     }
   }
   render() {
@@ -35,17 +34,3 @@ export class Layout extends React.Component {
     </div>);
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    // fuelSavings: state.fuelSavings
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    // actions: bindActionCreators(actions, dispatch)
-  };
-}
-
-export default connect(null, null)(Layout);

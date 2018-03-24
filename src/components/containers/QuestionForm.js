@@ -1,14 +1,14 @@
 import React from 'react';
-import {submitComment} from '../../actions/questionActions'
+import {submitComment} from '../../actions/questionActions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import uniqid from 'uniqid';
-import Phone from 'react-phone-number-input'
-import { format, parse, isValidNumber } from 'libphonenumber-js'
+import Phone from 'react-phone-number-input';
+import { format, parse, isValidNumber } from 'libphonenumber-js';
 import $ from 'jquery';
-import {ValidateEmail} from '../../utils/validations'
-import 'react-phone-number-input/rrui.css'
-import 'react-phone-number-input/style.css'
+import {ValidateEmail} from '../../utils/validations';
+import 'react-phone-number-input/rrui.css';
+import 'react-phone-number-input/style.css';
 
 class QuestionForm extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class QuestionForm extends React.Component {
         comment: false,
         email: false
       }
-    }
+    };
     this._onSubmit = this._onSubmit.bind(this);
     this._onChange = this._onChange.bind(this);
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
@@ -56,7 +56,7 @@ class QuestionForm extends React.Component {
   _onChange(e, type) {
     const {value} = e.target;
     if (type === 'comment' && value.length > 200) {
-      return
+      return;
     }
     let commentForm = $.extend(true, {}, this.state.commentForm);
     commentForm[type] = value;
@@ -68,23 +68,23 @@ class QuestionForm extends React.Component {
     let formIsValid = true;
     const {name, email, phone, comment} = this.state.commentForm;
     if (!ValidateEmail(email) || email === '') {
-      errors['email'] = "Please enter a valid email id"
-      formIsValid = false
+      errors['email'] = "Please enter a valid email id";
+      formIsValid = false;
     }
     if (name === '') {
-      errors['name'] = "Please enter your name"
-      formIsValid = false
+      errors['name'] = "Please enter your name";
+      formIsValid = false;
     }
     if (phone === '') {
-      errors['phone'] = "Please enter your phone"
-      formIsValid = false
+      errors['phone'] = "Please enter your phone";
+      formIsValid = false;
     }else if(!isValidNumber(phone)){
-      errors['phone'] = "Please enter a valid phone number"
-      formIsValid = false
+      errors['phone'] = "Please enter a valid phone number";
+      formIsValid = false;
     }
     if (comment === '') {
-      errors['comment'] = "Please enter your comment"
-      formIsValid = false
+      errors['comment'] = "Please enter your comment";
+      formIsValid = false;
     }
     this.setState({errors});
     return formIsValid;
@@ -105,7 +105,7 @@ class QuestionForm extends React.Component {
         votes: 0,
         comments: 0,
         id: uniqid()
-      }
+      };
       submitComment(params, selectedQuestion.id);
       this.resetVals();
     }

@@ -4,34 +4,34 @@ import _ from 'underscore';
 const initialState = {
   init: false,
   selectedQuestion: {}
-}
+};
 import $ from 'jquery';
 
 export const questionReducer = handleActions({
   [actions.SELECT_QUESTION]: (state, action) => {
-    let newState = $.extend(true,{},state)
+    let newState = $.extend(true,{},state);
     const {question} = action.payload;
     newState.selectedQuestion = question;
-    return newState
+    return newState;
   },
   [actions.UPVOTE]: (state,action) => {
       let newState = $.extend(true,{},state);
-      const {questionId, replyId, votes} = action.payload;
+      const {replyId, votes} = action.payload;
       let reply = _.findWhere(newState.selectedQuestion.replies, {id:replyId});
       reply.votes = votes;
-      return newState
+      return newState;
   },
   [actions.DOWNVOTE]: (state,action) => {
       let newState = $.extend(true,{},state);
-      const {questionId, replyId, votes} = action.payload;
+      const {replyId, votes} = action.payload;
       let reply = _.findWhere(newState.selectedQuestion.replies, {id:replyId});
       reply.votes = votes;
-      return newState
+      return newState;
   },
   [actions.SUBMIT_COMMENT]:(state,action)=>{
-    let newState = $.extend(true,{},state)
-    const {data, questionId} = action.payload;
+    let newState = $.extend(true,{},state);
+    const {data} = action.payload;
     newState.selectedQuestion.replies.push(data);
     return newState;
   }
-}, initialState)
+}, initialState);

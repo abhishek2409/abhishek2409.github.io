@@ -4,9 +4,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Link} from 'react-router-dom';
 import {questionAsked} from '../../constants/appConstants';
-import {selectQuestion, upVoteQuestion, downVoteQuestion} from '../../actions/questionActions'
+import {selectQuestion, upVoteQuestion, downVoteQuestion} from '../../actions/questionActions';
 import _ from 'underscore';
-import QuestionAsked from '../Common/QuestionAsked'
+import QuestionAsked from '../Common/QuestionAsked';
 import QuestionReplies from '../Common/QuestionReplies';
 import QuestionForm from './QuestionForm';
 
@@ -17,9 +17,9 @@ export class Tab2 extends React.Component {
     this.downVote = this.downVote.bind(this);
   }
   componentDidMount() {
-    const {selectedQuestion, selectQuestion} = this.props
+    const {selectedQuestion, selectQuestion} = this.props;
     if (_.isEmpty(selectedQuestion)) {
-      selectQuestion(questionAsked)
+      selectQuestion(questionAsked);
     }
   }
   upVote(replyId, questionId, votes) {
@@ -31,14 +31,14 @@ export class Tab2 extends React.Component {
     downVoteQuestion(replyId,questionId, votes);
   }
   render() {
-    const {selectedQuestion, commentForm} = this.props
+    const {selectedQuestion, commentForm} = this.props;
     return !_.isEmpty(selectedQuestion)
           ? (<div className="tab2-wrapper">
             <QuestionAsked question={selectedQuestion}/>
             <QuestionReplies question={selectedQuestion} upVote={this.upVote} downVote={this.downVote}/>
             <QuestionForm/>
           </div>)
-          : (<div>Loading...</div>)
+          : (<div>Loading...</div>);
 
   }
 }

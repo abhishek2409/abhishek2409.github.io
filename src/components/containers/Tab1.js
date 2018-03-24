@@ -15,7 +15,7 @@ export class Tab1 extends React.Component {
   componentWillMount(){
       const {departureFlights, arrivalFlights, init} = this.props;
       if(_.isEmpty(departureFlights) && _.isEmpty()){
-          init({departureFlights:departureFlightsConst,arrivalFlights:returnFlightsConst})
+          init({departureFlights:departureFlightsConst,arrivalFlights:returnFlightsConst});
       }
   }
 

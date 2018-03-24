@@ -15,7 +15,7 @@ export default class FlightDetail extends React.Component {
         {fmtTime}</h3>
       <p className="place-timings">{moment(time).format("D MMM' YY, ddd")}</p>
       <p className="place-tml">{tml}</p>
-    </div>)
+    </div>);
   }
   renderStopages(flight) {
     if (flight.ifNonStop) {
@@ -23,18 +23,18 @@ export default class FlightDetail extends React.Component {
       <div className="stopage"><span className="stopage-icon"/></div>
       <div className="non-stopage">{flight.duration} | Non Stop</div>
       <div className="stopage"><span className="stopage-icon"/></div>
-      </div>)
+      </div>);
     } else {
       return (<div className="stopage-wrapper">
         <div className="stopage"><span className="stopage-icon"/></div>
         <div className="have-stops">{flight.duration} | {flight.stops.length} {`stop${flight.stops.length > 1 ? "s" : ""}`}</div>
         {
           _.map(flight.stops, (stop, i) => {
-            return ( <div className="stopage" key={i}><span className="stopage-icon"/><span className="stopage-text">{stop}</span></div>)
+            return ( <div className="stopage" key={i}><span className="stopage-icon"/><span className="stopage-text">{stop}</span></div>);
           })
         }
         <div className="stopage"><span className="stopage-icon"/></div>
-      </div>)
+      </div>);
     }
   }
   renderBaggageAllowance(bag) {
@@ -43,7 +43,7 @@ export default class FlightDetail extends React.Component {
         Check in: {`${bag.adult}${bag.units} for adult`}</div>
         <div className="allowance-item"><span className="fas fa-shopping-bag"/>
           Check in: {`${bag.child}${bag.units} for child`}</div>
-    </div>)
+      </div>);
   }
   render() {
     const {flight} = this.props;

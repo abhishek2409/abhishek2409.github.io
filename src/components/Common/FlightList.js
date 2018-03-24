@@ -14,23 +14,23 @@ export default class FlightList extends React.Component {
       <div className="stopage"><span className="stopage-icon"/></div>
       <div className="non-stopage">{flight.duration} | Non Stop</div>
       <div className="stopage"><span className="stopage-icon"/></div>
-      </div>)
+      </div>);
     } else {
       return (<div className="stopage-wrapper">
         <div className="stopage"><span className="stopage-icon"/></div>
         <div className="have-stops">{flight.duration} | {flight.stops.length} {`stop${flight.stops.length > 1 ? "s" : ""}`}</div>
         {
           _.map(flight.stops, (stop, i) => {
-            return ( <div className="stopage" key={i}><span className="stopage-icon"/><span className="stopage-text">{stop}</span></div>)
+            return ( <div className="stopage" key={i}><span className="stopage-icon"/><span className="stopage-text">{stop}</span></div>);
           })
         }
         <div className="stopage"><span className="stopage-icon"/></div>
-      </div>)
+      </div>);
     }
   }
   _onChange(flight,type){
       const {selectFlight} = this.props;
-      selectFlight(flight,type)
+      selectFlight(flight,type);
   }
 
   renderList(options, selectedFlight, type) {
@@ -53,8 +53,8 @@ export default class FlightList extends React.Component {
             </div>
           </div>
         </li>
-        )
-    })
+      );
+    });
   }
   render() {
     const {selectedFlight, options, type} = this.props;

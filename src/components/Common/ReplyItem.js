@@ -3,21 +3,21 @@ import moment from 'moment';
 
 export default class ReplyItem extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
   upVote() {
-    const {reply, upVoteQuestion, question} = this.props
+    const {reply, upVoteQuestion, question} = this.props;
     const votes = reply.votes + 1;
-    upVoteQuestion(reply.id, question.id, votes)
+    upVoteQuestion(reply.id, question.id, votes);
   }
   downVote() {
-    const {reply, downVoteQuestion, question} = this.props
+    const {reply, downVoteQuestion, question} = this.props;
     const votes = reply.votes - 1;
-    downVoteQuestion(reply.id, question.id, votes)
+    downVoteQuestion(reply.id, question.id, votes);
   }
 
   render() {
-    const {reply} = this.props
+    const {reply} = this.props;
     return (<div className="reply-item">
       <div className="vote-section">
         <button onClick={this.upVote.bind(this)}><span className="fas fa fa-caret-up"/></button>
