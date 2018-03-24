@@ -3,9 +3,12 @@ import {submitComment} from '../../actions/questionActions'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import uniqid from 'uniqid';
-import ReactPhoneInput from 'react-phone-input-2';
+import Phone from 'react-phone-number-input'
+import { format, parse, isValidNumber } from 'libphonenumber-js'
 import $ from 'jquery';
 import {ValidateEmail} from '../../utils/validations'
+import 'react-phone-number-input/rrui.css'
+import 'react-phone-number-input/style.css'
 
 class QuestionForm extends React.Component {
   constructor(props) {
@@ -75,6 +78,9 @@ class QuestionForm extends React.Component {
     if (phone === '') {
       errors['phone'] = "Please enter your phone"
       formIsValid = false
+    }else if(!isValidNumber(phone)){
+      errors['phone'] = "Please enter a valid phone number"
+      formIsValid = false
     }
     if (comment === '') {
       errors['comment'] = "Please enter your comment"
@@ -134,13 +140,7 @@ class QuestionForm extends React.Component {
             }
           </div>
           <div className="form-group col-md-4">
-            <ReactPhoneInput value={phone} defaultCountry={'in'} onChange={this.handlePhoneChange}/> {
-              errors.phone
-                ? (<div className="invalid-feedback">
-                  {errors.phone}
-                </div>)
-                : null
-            }
+            <Phone saveOnIcons={false} inputClassName="form-control" error={ phone ? (isValidNumber(phone) ? "" : 'Please enter a valid phone number') : 'Please enter your phone number' } indicateInvalid={errors.phone} required placeholder="Enter phone number" className="phone-input" value={phone} onChange={ this.handlePhoneChange} />
           </div>
         </div>
         <div className="form-row">
