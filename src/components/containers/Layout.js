@@ -2,8 +2,19 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {NavLink, Route} from 'react-router-dom';
-import Tab1 from './Tab1';
-import Tab2 from './Tab2';
+// import Tab1 from './Tab1';
+// import Tab2 from './Tab2';
+import Loadable from 'react-loadable';
+import {Loading} from '../Common/Loading';
+
+const Tab1 = Loadable({
+  loader: () => import('./Tab1'),
+  loading: Loading,
+})
+const Tab2 = Loadable({
+  loader: () => import('./Tab2'),
+  loading: Loading,
+})
 
 export default class Layout extends React.Component {
   constructor(props) {
